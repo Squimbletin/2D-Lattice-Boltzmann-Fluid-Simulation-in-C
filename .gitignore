@@ -1,0 +1,27 @@
+# Build output
+*.o
+*.obj
+*.exe
+*.out
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.pdb
+*.ilk
+*.d
+/wind_tunnel
+/tests/test_grid
+/tests/test_lbm
+
+# Simulation output
+/frames/
+*.ppm
+/wind_tunnel.gif
+
+# Editor / OS
+.vscode/
+.DS_Store
+Thumbs.db
+__pycache__/
