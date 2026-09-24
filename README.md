@@ -18,7 +18,7 @@ python tools/make_gif.py
 
 ## Features
 
-- Lattice Boltzmann solver (D2Q9, BGK collision) with no external dependencies
+- Lattice Boltzmann solver (D2Q9, BGK collision)
 - flat array storing the 9 distribution values for each cell
 - Solid obstacles via a cell mask, with bounce-back no-slip walls
 - Zou-He velocity inlet and pressure outlet
