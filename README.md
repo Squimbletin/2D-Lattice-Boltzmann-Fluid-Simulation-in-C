@@ -109,7 +109,7 @@ Frames color each cell by vorticity (`∂uy/∂x − ∂ux/∂y`) computed with 
 
 MIT. See [LICENSE](LICENSE).
 
-##Sources
+## Sources
 
 [1] “Beginner’s guide to aeronautics,” NASA, https://www.grc.nasa.gov/WWW/K-12/airplane/index.html (accessed Jun. 2026). 
 
