@@ -111,7 +111,7 @@ MIT. See [LICENSE](LICENSE).
 
 ## Sources
 
-[1] “Beginner’s guide to aeronautics,” NASA, https://www.grc.nasa.gov/WWW/K-12/airplane/index.html (accessed Jun. 2026). 
+[1] “Beginner’s guide to aeronautics,” NASA, https://www.grc.nasa.gov/WWW/K-12/airplane/index.html 
 
 [2] Q. Zou and X. He, “On pressure and velocity boundary conditions for the lattice Boltzmann BGK model,” Physics of fluids (1994), vol. 9, no. 6, pp. 1591–1598, June 1997, doi:10.1063/1.869307.
 
