@@ -1,6 +1,6 @@
 # Wind Tunnel: 2D Lattice Boltzmann Fluid Simulation in C
 
-A 2D wind tunnel simulator written from scratch in C using the **Lattice Boltzmann Method (D2Q9)**. Place obstacles in the tunnel, run the simulation, and render the flow as an animated GIF.
+A 2D wind tunnel simulator written in C using the **Lattice Boltzmann Method (D2Q9)**. Place obstacles in the tunnel, run the simulation, and render the flow as an animated GIF.
 
 ![Flow past a cylinder](docs/wind_tunnel_cylinder.gif)
 
@@ -9,22 +9,22 @@ A 2D wind tunnel simulator written from scratch in C using the **Lattice Boltzma
 ## Quick start
 
 ```
-git clone https://github.com/YOUR-USERNAME/wind-tunnel-lbm.git
-cd wind-tunnel-lbm
+git clone https://github.com/Squimbletin/2D-Lattice-Boltzmann-Fluid-Simulation-in-C.git
+cd 2D-Lattice-Boltzmann-Fluid-Simulation-in-C
 make wind_tunnel
-./wind_tunnel cylinder 9000 150
+./wind_tunnel cylinder [Scene / Shape][total steps][time between frames][Mode (velocity or vorticity)]
 python tools/make_gif.py
 ```
 
 ## Features
 
 - Lattice Boltzmann solver (D2Q9, BGK collision) with no external dependencies
-- Cache-friendly flat array storing the 9 distribution values for each cell contiguously
+- flat array storing the 9 distribution values for each cell
 - Solid obstacles via a cell mask, with bounce-back no-slip walls
 - Zou-He velocity inlet and pressure outlet
-- Built-in scenes: cylinder, square block, NACA 0012 airfoil, and a multi-obstacle course
-- Frame renderer (vorticity or speed) that writes PPM images, plus a script to stitch them into a GIF
-- Unit tests for the grid and the LBM core
+- Built-in scenes: cylinder, square block, airfoil, and a multi-obstacle course
+- Frame renderer (vorticity or speed) that writes images plus a script to stitch them into a GIF
+- tests for the grid and the LBM core
 
 ## Gallery
 
@@ -36,23 +36,15 @@ python tools/make_gif.py
 
 ### Requirements
 
-- A C compiler (`gcc`) and `make`. On Windows, `winget install BrechtSanders.WinLibs.POSIX.UCRT` installs both (add its `bin` folder to your PATH)
+- A C compiler (`gcc`) and `make`
 - Python 3 with [Pillow](https://pypi.org/project/pillow/) for making GIFs: `python -m pip install -r requirements.txt`
 
 ### Build and run
 
 ```
 make wind_tunnel
-./wind_tunnel cylinder 9000 150
+./wind_tunnel cylinder [Scene / Shape][total steps][time between frames][Mode (velocity or vorticity)]
 python tools/make_gif.py
-```
-
-On Windows PowerShell, run the program as `.\wind_tunnel`. The run takes about two minutes and writes frames to `frames/`. The GIF is saved as `wind_tunnel.gif`.
-
-### Command line
-
-```
-./wind_tunnel [scene] [steps] [frame_interval] [mode]
 ```
 
 | Argument | Options | Default |
@@ -73,9 +65,9 @@ make test_grid && ./tests/test_grid
 make test_lbm && ./tests/test_lbm
 ```
 
-## Adding your own scene
+## Creating scenes
 
-Scenes live in `build_scene()` in `src/main.c`. Add a branch and place shapes in grid coordinates:
+find scenes in `build_scene()` in `src/main.c`. Add a branch and place shapes in grid coordinates:
 
 ```c
 } else if (strcmp(scene, "my_scene") == 0) {
@@ -89,32 +81,18 @@ If a scene goes unstable, set `*tau` higher (0.6 to 0.7) or `*u_in` lower (0.05 
 
 ## How it works
 
-The simulation tracks how much fluid is moving in each of 9 directions at every grid cell. Density and velocity are recovered from those 9 values. Each time step does:
+The simulation tracks how much fluid is moving in each of 9 directions at every grid cell. Density and velocity are taken from those 9 values. Each time step does:
 
 1. **Collision:** each cell's distributions relax toward local equilibrium at a rate set by `tau`, which sets the fluid's viscosity: `ν = (tau − 0.5) / 3`.
-2. **Bounce-back:** on solid cells, populations are reversed so fluid reflects off surfaces.
+2. **Bounce-back:** on solid cells (obstacles), populations are reversed so fluid reflects off surfaces.
 3. **Streaming:** every distribution moves one cell in its direction.
-4. **Boundaries:** a fixed-speed inlet on the left and a fixed-density outlet on the right, both using Zou-He conditions.
+4. **Boundaries:** a fixed-speed inlet on the left and a fixed-density outlet on the right (wind blows from left to right of the screen), both using Zou-He conditions.
 
 Frames color each cell by vorticity (`∂uy/∂x − ∂ux/∂y`) computed with central differences.
 
-## Project structure
-
-```
-include/        grid.h, lbm.h, boundary.h, visualize.h
-src/
-  grid.c        flat 3D array holding the D2Q9 distributions
-  lbm.c         equilibrium, density, velocity, collision, streaming
-  boundary.c    obstacle mask, shape builders, bounce-back, inlet, outlet
-  visualize.c   vorticity and speed rendering to PPM
-  main.c        scene setup and simulation loop
-tests/          unit tests for the grid and LBM core
-tools/          make_gif.py (frames to animated GIF)
-```
-
 ## Limitations
 
-- 2D only. Curved surfaces are stair-stepped by the bounce-back method, so results are good for visualization but are not validated aerodynamics.
+- 2D only. Curved surfaces are stair-stepped by the bounce-back method, so results are good for visualization but are fully realistic.
 - Runs at low Reynolds numbers (roughly 100 to 500), far below real aircraft.
 - The tunnel walls are close to the obstacles, so blockage affects the flow.
 - Single-threaded. The streaming step copies the full grid every step.
@@ -125,7 +103,7 @@ tools/          make_gif.py (frames to animated GIF)
 - [ ] Plot lift coefficient against angle of attack
 - [ ] Faster streaming with buffer swapping and OpenMP
 - [ ] Interpolated bounce-back for smoother curved surfaces
-- [ ] Extend to 3D (D3Q19) with importable mesh geometry
+- [ ] Extend to 3D (D3Q19)
 
 ## License
 
