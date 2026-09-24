@@ -108,3 +108,13 @@ Frames color each cell by vorticity (`∂uy/∂x − ∂ux/∂y`) computed with 
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+##Sources
+
+[1] “Beginner’s guide to aeronautics,” NASA, https://www.grc.nasa.gov/WWW/K-12/airplane/index.html (accessed Jun. 2026). 
+
+[2] Q. Zou and X. He, “On pressure and velocity boundary conditions for the lattice Boltzmann BGK model,” Physics of fluids (1994), vol. 9, no. 6, pp. 1591–1598, June 1997, doi:10.1063/1.869307.
+
+[3] Lattice-Boltzmann fluid dynamics - physics, https://physics.weber.edu/schroeder/javacourse/LatticeBoltzmann.pdf
+  
+[4] Fluid Dynamics Simulation, https://physics.weber.edu/schroeder/fluids/
