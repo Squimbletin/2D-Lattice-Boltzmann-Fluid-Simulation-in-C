@@ -67,7 +67,7 @@ make test_lbm && ./tests/test_lbm
 
 ## Creating scenes
 
-find scenes in `build_scene()` in `src/main.c`. Add a branch and place shapes in grid coordinates:
+find scenes in `build_scene()` in `src/main.c`. Add a new scene and place shapes in grid coordinates:
 
 ```c
 } else if (strcmp(scene, "my_scene") == 0) {
