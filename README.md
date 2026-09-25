@@ -1,6 +1,6 @@
 # Wind Tunnel: 2D Lattice Boltzmann Fluid Simulation in C
 
-A 2D wind tunnel simulator written in C using the **Lattice Boltzmann Method (D2Q9)**. Place obstacles in the tunnel, run the simulation, and render the flow as an animated GIF.
+A 2D wind tunnel simulator written in C using the **Lattice Boltzmann Method (D2Q9)**. Place obstacles in the tunnel, run the simulation, and render the flow as an animated GIF. This is a 5 month long learning project.
 
 ![Flow past a cylinder](docs/wind_tunnel_cylinder.gif)
 
